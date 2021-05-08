@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from .models import AuthMessage
+from .models import AuthToken
 
 
-class AuthMessageSerializer(serializers.ModelSerializer):
+class AuthTokenSerializer(serializers.ModelSerializer):
     class Meta:
-        model = AuthMessage
+        model = AuthToken
         fields = ("pk", "creation_date", "clear_message", "encrypted_message")
