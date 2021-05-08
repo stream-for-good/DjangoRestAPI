@@ -6,20 +6,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0003_rename_date_authmessage_creation_date'),
+        ("app", "0003_rename_date_authmessage_creation_date"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='AuthToken',
+            name="AuthToken",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('clear_message', models.BinaryField()),
-                ('encrypted_message', models.BinaryField()),
-                ('creation_date', models.DateTimeField(auto_now=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("clear_message", models.BinaryField()),
+                ("encrypted_message", models.BinaryField()),
+                ("creation_date", models.DateTimeField(auto_now=True)),
             ],
         ),
         migrations.DeleteModel(
-            name='AuthMessage',
+            name="AuthMessage",
         ),
     ]

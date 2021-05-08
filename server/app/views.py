@@ -19,7 +19,9 @@ class ListAuthTokenViewSet(viewsets.ModelViewSet):
 
 class EncryptedTokenView(APIView):
     def get(self, request):
-        recipient_key = RSA.importKey(open("static/id_rsa.pub", encoding='us-ascii').read())
+        recipient_key = RSA.importKey(
+            open("static/id_rsa.pub", encoding="us-ascii").read()
+        )
         cipher_rsa = PKCS1_OAEP.new(recipient_key)
         random_bytes = get_random_bytes(1)
 
@@ -27,6 +29,15 @@ class EncryptedTokenView(APIView):
         random_bytes_encrypted = cipher_rsa.encrypt(random_bytes)
 
         # Save info
-        AuthToken(clear_message=random_bytes, encrypted_message=random_bytes_encrypted).save()
+        token = AuthToken(
+            clear_message=random_bytes, encrypted_message=random_bytes_encrypted
+        )
+        token.save()
 
-        return Response({'encrypted_token': base64.b64encode(random_bytes_encrypted)}, status=status.HTTP_200_OK)
+        return Response(
+            {
+                "pk": token.pk,
+                "encrypted_token": base64.b64encode(random_bytes_encrypted),
+            },
+            status=status.HTTP_200_OK,
+        )
