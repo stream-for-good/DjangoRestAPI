@@ -3,7 +3,7 @@ from rest_framework import serializers
 from .models import AuthMessage
 
 
-class AuthMessageSerializer(serializers.HyperlinkedModelSerializer):
+class AuthMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = AuthMessage
-        fields = ("clear_message", "encrypted_message", "creation_date")
+        fields = ("pk", "creation_date", "clear_message", "encrypted_message")
